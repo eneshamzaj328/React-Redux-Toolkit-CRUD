@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
+
+import RootLayout from './Pages/Root';
+import HomePage from './Pages/Home';
+import UsersPage from './Pages/Users';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <h1 className="block mt-40 text-neutral-700 text-2xl font-bold text-center">404 Not Found. <Link to='/' className="block mt-4 text-xl underline font-sans text-sky-700">Back to Home {'>'}</Link></h1>,
+    children: [
+      {
+        index: true,
+        element: <HomePage />
+      },
+      {
+        path: 'users',
+        element: <UsersPage />,
+      }
+    ]
+  },
+]);
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
